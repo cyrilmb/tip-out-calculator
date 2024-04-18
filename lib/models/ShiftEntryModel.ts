@@ -1,4 +1,4 @@
-export type Entry = {
+export type Shift = {
     position: string
     date: Date
     am_pm: string

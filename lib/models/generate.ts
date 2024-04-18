@@ -1,4 +1,4 @@
-import { Entry } from './models/EntryModel';
+import { Shift } from './ShiftEntryModel';
 
 function generateRandomNumber(min: number, max: number): number {
     return Math.random() * (max - min) + min;
@@ -10,7 +10,7 @@ function generateRandomDate(): Date {
     return new Date(startDate.getTime() + Math.random() * (endDate.getTime() - startDate.getTime()));
 }
 
-function generateRandomEntry(position: string): Entry {
+function generateRandomEntry(position: string): Shift {
     const date = generateRandomDate();
     const am_pm = Math.random() < 0.5 ? 'AM' : 'PM';
     const hoursWorked = generateRandomNumber(1, 8);
@@ -47,8 +47,8 @@ function generateRandomEntry(position: string): Entry {
     };
 }
 
-function generateData(): Entry[] {
-    const data: Entry[] = [];
+function generateData(): Shift[] {
+    const data: Shift[] = [];
     const positions = ['Server', 'Server', 'Bartender'];
 
     for (let i = 0; i < 3; i++) {
