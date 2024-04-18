@@ -1,9 +1,9 @@
-import ShiftsView from '@/components/ShiftsView'
+import ShiftsTableView from '@/components/ShiftsTableView'
 
 export default function Home() {
   return (
     <main>
-      <ShiftsView />
+      <ShiftsTableView />
     </main>
   )
 }
