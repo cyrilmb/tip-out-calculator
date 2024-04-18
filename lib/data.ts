@@ -1,5 +1,3 @@
-import exp from "constants";
-
 const data = {
     shifts: [
     // Day 1
