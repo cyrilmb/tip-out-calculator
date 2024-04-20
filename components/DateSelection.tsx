@@ -1,7 +1,14 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import data from '@/lib/data'
 
 export default function DateSelection() {
+  const [isChecked, setIsChecked] = useState(false)
+
+  //array of selected dates to pass down to calculations
+  const [dateSelection, setDateSelection] = useState<string[]>([])
+
   const dateReformat = data.shifts.map((shift) =>
     shift.date.toLocaleDateString('en-us', {
       month: 'short',
@@ -23,9 +30,30 @@ export default function DateSelection() {
   const uniqueDatesArray = uniqueDates(dateReformat)
 
   return (
-    <div>
+    <div className="mt-5">
       {uniqueDatesArray.map((uniqueDate, i) => (
-        <h3 key={i}>{uniqueDate}</h3>
+        <span className="m-5" key={i}>
+          <input
+            id={`show-table-checkbox-${i}`}
+            type="checkbox"
+            checked={dateSelection.includes(uniqueDate)} // Check if uniqueDate is in dateSelection
+            onChange={() => {
+              setDateSelection((prevDateSelection) => {
+                if (!prevDateSelection.includes(uniqueDate)) {
+                  // If uniqueDate is not already in dateSelection, add it
+                  return [...prevDateSelection, uniqueDate]
+                } else {
+                  // If uniqueDate is already in dateSelection, remove it
+                  return prevDateSelection.filter((date) => date !== uniqueDate)
+                }
+              })
+              setIsChecked(!isChecked)
+            }}
+            value=""
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          {uniqueDate}
+        </span>
       ))}
     </div>
   )
