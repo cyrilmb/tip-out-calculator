@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import data from '@/lib/data'
+import DataSummaries from './DataSummaries'
 
 export default function DateSelection() {
   const [isChecked, setIsChecked] = useState(false)
@@ -55,6 +56,7 @@ export default function DateSelection() {
           {uniqueDate}
         </span>
       ))}
+      <DataSummaries dateSelection={dateSelection} />
     </div>
   )
 }
