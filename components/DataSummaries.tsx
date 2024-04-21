@@ -41,15 +41,17 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
 
   //Calculate all Server/Bartender tips for selected days
   function servBarTips(position: string) {
-    return filteredData.reduce((accumulator, shift) => {
-      if (shift.position === position) {
-        return accumulator + shift.totalTips
-      }
-      return accumulator
-    }, 0)
+    return round2Decimal(
+      filteredData.reduce((accumulator, shift) => {
+        if (shift.position === position) {
+          return accumulator + shift.totalTips
+        }
+        return accumulator
+      }, 0)
+    )
   }
-  const serverTips = round2Decimal(servBarTips('Server'))
-  const bartenderTips = round2Decimal(servBarTips('Bartender'))
+  const serverTips = servBarTips('Server')
+  const bartenderTips = servBarTips('Bartender')
 
   //Calculate host/expo/barback tipouts for selected days
   function hostExpoBbackTipOuts(tipOut: keyof Shift) {
@@ -66,12 +68,20 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   const expoTips = hostExpoBbackTipOuts('expoTipOut')
   const bBackTips = hostExpoBbackTipOuts('bBackTipOut')
 
+  function tipOutPercentagesOfSales(
+    position: string,
+    tipOut: number,
+    sales: keyof Shift
+  ) {
+    return
+  }
+
   return (
     <div>
       <table className="auto">
         <thead>
           <tr>
-            <th className="border border-slate-500">Position</th>
+            <th className="border border-slate-500">Position (all)</th>
             <th className="border border-slate-500">Total Tips</th>
             <th className="border border-slate-500">% Sales to Host</th>
             <th className="border border-slate-500">% Food Sales to Expo</th>
