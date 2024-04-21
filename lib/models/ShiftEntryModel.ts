@@ -4,7 +4,7 @@ export type Shift = {
     am_pm: string
     hoursWorked: number
     foodSales: number
-    liquorSales: number
+    liquorSales?: number
     totalTips: number
     barTipOut?: number
     bBackTipOut?: number
