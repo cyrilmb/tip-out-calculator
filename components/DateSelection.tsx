@@ -6,6 +6,7 @@ import DataSummaries from './DataSummaries'
 
 export default function DateSelection() {
   const [isChecked, setIsChecked] = useState(false)
+  const [selectAll, setSelectAll] = useState(false)
 
   //array of selected dates to pass down to calculations
   const [dateSelection, setDateSelection] = useState<string[]>([])
@@ -32,6 +33,20 @@ export default function DateSelection() {
 
   return (
     <div className="mt-5">
+      <span className="m-5">
+        <input
+          id="select-all-checkbox"
+          type="checkbox"
+          checked={selectAll}
+          onChange={() => {
+            setSelectAll(!selectAll)
+            setDateSelection(selectAll ? [] : uniqueDatesArray)
+            setIsChecked(!isChecked)
+          }}
+          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        />
+        Select All Dates
+      </span>
       {uniqueDatesArray.map((uniqueDate, i) => (
         <span className="m-5" key={i}>
           <input

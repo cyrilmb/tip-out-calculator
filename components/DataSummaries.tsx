@@ -1,4 +1,5 @@
 import React from 'react'
+import { round2Decimal } from '@/lib/utils'
 
 interface DataSummariesProps {
   dateSelection: string[]
@@ -38,40 +39,32 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   // Use the filtered data
   const filteredData = filterByDates(data, dateSelection)
 
-  const serverTips = filteredData.reduce((accumulator, shift) => {
-    if (shift.position === 'Server') {
-      return accumulator + shift.totalTips
-    }
-    return accumulator
-  }, 0)
+  //Calculate all Server/Bartender tips for selected days
+  function servBarTips(position: string) {
+    return filteredData.reduce((accumulator, shift) => {
+      if (shift.position === position) {
+        return accumulator + shift.totalTips
+      }
+      return accumulator
+    }, 0)
+  }
+  const serverTips = round2Decimal(servBarTips('Server'))
+  const bartenderTips = round2Decimal(servBarTips('Bartender'))
 
-  const bartenderTips = filteredData.reduce((accumulator, shift) => {
-    if (shift.position === 'Bartender') {
-      return accumulator + shift.totalTips
-    }
-    return accumulator
-  }, 0)
-
-  const hostTips = filteredData.reduce((accumulator, shift) => {
-    if (shift.position === 'Server' || shift.position === 'Bartender') {
-      return accumulator + (shift.hostTipOut ?? 0)
-    }
-    return accumulator
-  }, 0)
-
-  const expoTips = filteredData.reduce((accumulator, shift) => {
-    if (shift.position === 'Server' || shift.position === 'Bartender') {
-      return accumulator + (shift.expoTipOut ?? 0)
-    }
-    return accumulator
-  }, 0)
-
-  const bBackTips = filteredData.reduce((accumulator, shift) => {
-    if (shift.position === 'Server' || shift.position === 'Bartender') {
-      return accumulator + (shift.bBackTipOut ?? 0)
-    }
-    return accumulator
-  }, 0)
+  //Calculate host/expo/barback tipouts for selected days
+  function hostExpoBbackTipOuts(tipOut: keyof Shift) {
+    return round2Decimal(
+      filteredData.reduce((accumulator, shift) => {
+        if (shift.position === 'Server' || shift.position === 'Bartender') {
+          return accumulator + Number(shift[tipOut] ?? 0)
+        }
+        return accumulator
+      }, 0)
+    )
+  }
+  const hostTips = hostExpoBbackTipOuts('hostTipOut')
+  const expoTips = hostExpoBbackTipOuts('expoTipOut')
+  const bBackTips = hostExpoBbackTipOuts('bBackTipOut')
 
   return (
     <div>
