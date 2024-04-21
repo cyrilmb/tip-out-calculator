@@ -56,7 +56,7 @@ export default function DateSelection() {
           {uniqueDate}
         </span>
       ))}
-      <DataSummaries dateSelection={dateSelection} />
+      <DataSummaries dateSelection={dateSelection} data={data.shifts} />
     </div>
   )
 }
