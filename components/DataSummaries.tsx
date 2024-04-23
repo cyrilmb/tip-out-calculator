@@ -54,7 +54,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   const bartenderTips = servBarTips('Bartender')
 
   //Calculate host/expo/barback tipouts for selected days
-  function hostExpoBbackTipOuts(tipOut: keyof Shift) {
+  function supportStaffTipOuts(tipOut: keyof Shift) {
     return round2Decimal(
       filteredData.reduce((accumulator, shift) => {
         if (shift.position === 'Server' || shift.position === 'Bartender') {
@@ -64,9 +64,9 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
       }, 0)
     )
   }
-  const hostTips = hostExpoBbackTipOuts('hostTipOut')
-  const expoTips = hostExpoBbackTipOuts('expoTipOut')
-  const bBackTips = hostExpoBbackTipOuts('bBackTipOut')
+  const hostTips = supportStaffTipOuts('hostTipOut')
+  const expoTips = supportStaffTipOuts('expoTipOut')
+  const bBackTips = supportStaffTipOuts('bBackTipOut')
 
   function calculateTipOutPercentage(
     position: 'server' | 'bartender',
@@ -92,9 +92,23 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     }, 0)
 
     // Calculate total tip out based on recipient
-    const totalTipOut = filteredShifts.reduce((acc, shift) => {
-      return acc + (shift[recipient] || 0)
-    }, 0)
+    let totalTipOut = 0
+    if (recipient === 'bBackTipOut' && position === 'bartender') {
+      const hostTips = supportStaffTipOuts('hostTipOut')
+      const expoTips = supportStaffTipOuts('expoTipOut')
+      const bartenderTipsAfterTipouts = filteredShifts.reduce((acc, shift) => {
+        return acc + (shift.totalTips - hostTips + expoTips)
+      }, 0)
+      totalTipOut =
+        bartenderTipsAfterTipouts -
+        filteredShifts.reduce((acc, shift) => {
+          return acc + (shift.hostTipOut || 0) + (shift.expoTipOut || 0)
+        }, 0)
+    } else {
+      totalTipOut = filteredShifts.reduce((acc, shift) => {
+        return acc + (shift[recipient] || 0)
+      }, 0)
+    }
 
     // Calculate the percentage
     const percentage = (totalTipOut / totalSales) * 100
