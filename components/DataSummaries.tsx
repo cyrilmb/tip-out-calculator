@@ -68,12 +68,38 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   const expoTips = hostExpoBbackTipOuts('expoTipOut')
   const bBackTips = hostExpoBbackTipOuts('bBackTipOut')
 
-  function tipOutPercentagesOfSales(
-    position: string,
-    tipOut: number,
-    sales: keyof Shift
-  ) {
-    return
+  function calculateTipOutPercentage(
+    position: 'server' | 'bartender',
+    salesType: 'foodSales' | 'liquorSales' | 'totalSales',
+    recipient: 'bBackTipOut' | 'expoTipOut' | 'hostTipOut'
+  ): number {
+    const shifts: Shift[] = [] // Your dataset
+
+    // Filter shifts based on position
+    const filteredShifts = shifts.filter(
+      (shift) => shift.position.toLowerCase() === position
+    )
+
+    // Calculate total sales based on salesType
+    const totalSales = filteredShifts.reduce((acc, shift) => {
+      if (salesType === 'foodSales') {
+        return acc + shift.foodSales
+      } else if (salesType === 'liquorSales') {
+        return acc + (shift.liquorSales || 0)
+      } else {
+        return acc + shift.foodSales + (shift.liquorSales || 0)
+      }
+    }, 0)
+
+    // Calculate total tip out based on recipient
+    const totalTipOut = filteredShifts.reduce((acc, shift) => {
+      return acc + (shift[recipient] || 0)
+    }, 0)
+
+    // Calculate the percentage
+    const percentage = (totalTipOut / totalSales) * 100
+
+    return percentage
   }
 
   return (
