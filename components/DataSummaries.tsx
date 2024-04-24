@@ -71,17 +71,16 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   function calculateTipOutPercentage(
     position: 'server' | 'bartender',
     salesType: 'foodSales' | 'liquorSales' | 'totalSales',
-    recipient: 'bBackTipOut' | 'expoTipOut' | 'hostTipOut'
+    recipient: 'bBackTipOut' | 'expoTipOut' | 'hostTipOut' | 'barTipOut',
+    filteredData: Shift[]
   ): number {
-    const shifts: Shift[] = [] // Your dataset
-
     // Filter shifts based on position
-    const filteredShifts = shifts.filter(
+    const filteredShifts = filteredData.filter(
       (shift) => shift.position.toLowerCase() === position
     )
 
     // Calculate total sales based on salesType
-    const totalSales = filteredShifts.reduce((acc, shift) => {
+    let totalSales = filteredShifts.reduce((acc, shift) => {
       if (salesType === 'foodSales') {
         return acc + shift.foodSales
       } else if (salesType === 'liquorSales') {
@@ -90,6 +89,18 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
         return acc + shift.foodSales + (shift.liquorSales || 0)
       }
     }, 0)
+
+    // Check if totalSales is not 0
+    if (totalSales === 0) {
+      return 0
+    }
+
+    // Adjust totalSales for bartender if recipient is bBackTipOut
+    if (position === 'bartender' && recipient === 'bBackTipOut') {
+      totalSales = filteredShifts.reduce((acc, shift) => {
+        return acc + shift.totalTips
+      }, 0)
+    }
 
     // Calculate total tip out based on recipient
     let totalTipOut = 0
@@ -113,8 +124,45 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     // Calculate the percentage
     const percentage = (totalTipOut / totalSales) * 100
 
-    return percentage
+    return round2Decimal(percentage)
   }
+
+  const serverToHostPercentage = calculateTipOutPercentage(
+    'server',
+    'totalSales',
+    'hostTipOut',
+    filteredData
+  )
+  const barToHostPercentage = calculateTipOutPercentage(
+    'bartender',
+    'totalSales',
+    'hostTipOut',
+    filteredData
+  )
+  const serverToExpoPercentage = calculateTipOutPercentage(
+    'server',
+    'foodSales',
+    'expoTipOut',
+    filteredData
+  )
+  const barToExpoPercentage = calculateTipOutPercentage(
+    'bartender',
+    'foodSales',
+    'expoTipOut',
+    filteredData
+  )
+  const serverToBarPercentage = calculateTipOutPercentage(
+    'server',
+    'liquorSales',
+    'barTipOut',
+    filteredData
+  )
+  const bBackPercentage = calculateTipOutPercentage(
+    'bartender',
+    'totalSales',
+    'bBackTipOut',
+    filteredData
+  )
 
   return (
     <div>
@@ -124,6 +172,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
             <th className="border border-slate-500">Position (all)</th>
             <th className="border border-slate-500">Total Tips</th>
             <th className="border border-slate-500">% Sales to Host</th>
+
             <th className="border border-slate-500">% Food Sales to Expo</th>
             <th className="border border-slate-500">% Liquor Sales to Bar</th>
             <th className="border border-slate-500">
@@ -138,10 +187,21 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
           <tr>
             <td className="border border-slate-500">Server</td>
             <td className="border border-slate-500">{serverTips}</td>
+            <td className="border border-slate-500">
+              {serverToHostPercentage}
+            </td>
+            <td className="border border-slate-500">
+              {serverToExpoPercentage}
+            </td>
+            <td className="border border-slate-500">{serverToBarPercentage}</td>
           </tr>
           <tr>
             <td className="border border-slate-500">Bartender</td>
             <td className="border border-slate-500">{bartenderTips}</td>
+            <td className="border border-slate-500">{barToHostPercentage}</td>
+            <td className="border border-slate-500">{barToExpoPercentage}</td>
+            <td></td>
+            <td className="border border-slate-500">{bBackPercentage}</td>
           </tr>
           <tr>
             <td className="border border-slate-500">Host</td>
