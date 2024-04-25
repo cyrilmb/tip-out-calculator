@@ -85,6 +85,13 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
         return acc + shift.foodSales
       } else if (salesType === 'liquorSales') {
         return acc + (shift.liquorSales || 0)
+      } else if (
+        // Adjust totalSales to be equal to totalTips from bartender if recipient is bBackTipOut
+        position === 'bartender' &&
+        recipient === 'bBackTipOut' &&
+        salesType === 'totalSales'
+      ) {
+        return acc + (shift.totalTips || 0)
       } else {
         return acc + shift.foodSales + (shift.liquorSales || 0)
       }
@@ -95,26 +102,15 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
       return 0
     }
 
-    // Adjust totalSales for bartender if recipient is bBackTipOut
-    if (position === 'bartender' && recipient === 'bBackTipOut') {
-      totalSales = filteredShifts.reduce((acc, shift) => {
-        return acc + shift.totalTips
-      }, 0)
-    }
-
-    // Calculate total tip out based on recipient
+    // Calculate bar total tip out based on recipient
     let totalTipOut = 0
     if (recipient === 'bBackTipOut' && position === 'bartender') {
-      const hostTips = supportStaffTipOuts('hostTipOut')
-      const expoTips = supportStaffTipOuts('expoTipOut')
-      const bartenderTipsAfterTipouts = filteredShifts.reduce((acc, shift) => {
-        return acc + (shift.totalTips - hostTips + expoTips)
+      totalTipOut = filteredShifts.reduce((acc, shift) => {
+        if (shift.position === 'Bartender' && shift.bBackTipOut !== undefined) {
+          return acc + (shift.bBackTipOut || 0)
+        }
+        return acc
       }, 0)
-      totalTipOut =
-        bartenderTipsAfterTipouts -
-        filteredShifts.reduce((acc, shift) => {
-          return acc + (shift.hostTipOut || 0) + (shift.expoTipOut || 0)
-        }, 0)
     } else {
       totalTipOut = filteredShifts.reduce((acc, shift) => {
         return acc + (shift[recipient] || 0)
@@ -123,6 +119,8 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
 
     // Calculate the percentage
     const percentage = (totalTipOut / totalSales) * 100
+
+    console.log(recipient, totalTipOut, totalSales, percentage)
 
     return round2Decimal(percentage)
   }
