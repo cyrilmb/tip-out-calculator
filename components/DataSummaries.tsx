@@ -120,8 +120,6 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     // Calculate the percentage
     const percentage = (totalTipOut / totalSales) * 100
 
-    console.log(recipient, totalTipOut, totalSales, percentage)
-
     return round2Decimal(percentage)
   }
 
@@ -162,6 +160,46 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     filteredData
   )
 
+  function totalTipsAndTipOuts(
+    position: 'Bartender' | 'Server',
+    filteredData: Shift[]
+  ): { percentage: number; difference: number; hourly: number } {
+    const filteredShifts = filteredData.filter(
+      (shift) => shift.position === position
+    )
+
+    const totalTips = filteredShifts.reduce(
+      (acc, shift) => acc + shift.totalTips,
+      0
+    )
+    const totalTipOuts = filteredShifts.reduce((acc, shift) => {
+      return (
+        acc +
+        (shift.barTipOut || 0) +
+        (shift.bBackTipOut || 0) +
+        (shift.expoTipOut || 0) +
+        (shift.hostTipOut || 0)
+      )
+    }, 0)
+
+    const hours = filteredShifts.reduce((acc, shift) => {
+      return acc + shift.hoursWorked
+    }, 0)
+
+    if (totalTips === 0) {
+      return { percentage: 0, difference: 0, hourly: 0 }
+    }
+
+    const percentage = round2Decimal((totalTipOuts / totalTips) * 100)
+    const difference = round2Decimal(totalTips - totalTipOuts)
+    const hourly = round2Decimal(difference / hours)
+
+    return { percentage, difference, hourly }
+  }
+
+  const barTotalTipsAndTipOuts = totalTipsAndTipOuts('Bartender', filteredData)
+  const serverTotalTipsAndTipOuts = totalTipsAndTipOuts('Server', filteredData)
+
   return (
     <div>
       <table className="auto">
@@ -192,6 +230,16 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
               {serverToExpoPercentage}
             </td>
             <td className="border border-slate-500">{serverToBarPercentage}</td>
+            <td></td>
+            <td className="border border-slate-500">
+              {serverTotalTipsAndTipOuts.percentage}
+            </td>
+            <td className="border border-slate-500">
+              {serverTotalTipsAndTipOuts.difference}
+            </td>
+            <td className="border border-slate-500">
+              {serverTotalTipsAndTipOuts.hourly}
+            </td>
           </tr>
           <tr>
             <td className="border border-slate-500">Bartender</td>
@@ -200,6 +248,15 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
             <td className="border border-slate-500">{barToExpoPercentage}</td>
             <td></td>
             <td className="border border-slate-500">{bBackPercentage}</td>
+            <td className="border border-slate-500">
+              {barTotalTipsAndTipOuts.percentage}
+            </td>
+            <td className="border border-slate-500">
+              {barTotalTipsAndTipOuts.difference}
+            </td>
+            <td className="border border-slate-500">
+              {barTotalTipsAndTipOuts.hourly}
+            </td>
           </tr>
           <tr>
             <td className="border border-slate-500">Host</td>
