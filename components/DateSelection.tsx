@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import data from '@/lib/data'
 import DataSummaries from './DataSummaries'
+import PoolProposal from './PoolProposal'
 
 export default function DateSelection() {
   const [isChecked, setIsChecked] = useState(false)
@@ -72,6 +73,7 @@ export default function DateSelection() {
         </span>
       ))}
       <DataSummaries dateSelection={dateSelection} data={data.shifts} />
+      <PoolProposal dateSelection={dateSelection} data={data.shifts} />
     </div>
   )
 }

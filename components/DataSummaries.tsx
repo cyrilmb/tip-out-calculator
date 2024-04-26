@@ -201,7 +201,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   const serverTotalTipsAndTipOuts = totalTipsAndTipOuts('Server', filteredData)
 
   return (
-    <div>
+    <div className="p-5">
       <table className="auto">
         <thead>
           <tr>
