@@ -67,6 +67,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   const expoTips = supportStaffTipOuts('expoTipOut')
   const bBackTips = supportStaffTipOuts('bBackTipOut')
 
+  //calculate the percentage of relevent sales/tips that leads are tipping out support staff
   function calculateTipOutPercentage(
     position: 'server' | 'bartender',
     salesType: 'foodSales' | 'liquorSales' | 'totalSales',
@@ -159,6 +160,8 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     filteredData
   )
 
+  //calculate the percentage of total tips that leads are tipping out,
+  //tips after tipouts, and tips per hour worked
   function totalTipsAndTipOuts(
     position: 'Bartender' | 'Server',
     filteredData: Shift[]
@@ -199,6 +202,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   const barTotalTipsAndTipOuts = totalTipsAndTipOuts('Bartender', filteredData)
   const serverTotalTipsAndTipOuts = totalTipsAndTipOuts('Server', filteredData)
 
+  //calculate the tips/hour for support staff
   function supportStaffTipsHourly(
     position: 'Host' | 'Expo' | 'Barback',
     filteredData: Shift[]
@@ -231,7 +235,6 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
       default:
         break
     }
-    console.log('Tips: ', totalTipOut)
 
     const totalHours = supportShifts.reduce((acc, shift) => {
       if (shift.position === position) {
@@ -239,7 +242,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
       }
       return acc
     }, 0)
-    console.log('Hours: ', totalHours)
+
     const hourly =
       totalHours !== 0 ? round2Decimal(totalTipOut / totalHours) : 0
 
