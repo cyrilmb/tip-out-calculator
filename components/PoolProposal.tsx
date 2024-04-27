@@ -79,10 +79,8 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
     //Value of a point is total pooled tips divided by number of points for given days
     const pointValue = pooledTips / (serverBarHours + supportStaffHours / 2)
 
-    const serverBarHourly = round2Decimal(pointValue * serverBarHours)
-    const supportStaffHourly = round2Decimal(
-      pointValue * (supportStaffHours / 2)
-    )
+    const serverBarHourly = round2Decimal(pointValue)
+    const supportStaffHourly = round2Decimal(pointValue / 2)
 
     return {
       pooledTips,
