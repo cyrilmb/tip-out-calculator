@@ -9,11 +9,10 @@ interface DataSummariesProps {
 interface Shift {
   position: string
   date: Date
-  am_pm: string
   hoursWorked: number
-  foodSales: number
+  foodSales?: number
   liquorSales?: number
-  totalTips: number
+  totalTips?: number
   barTipOut?: number
   bBackTipOut?: number
   expoTipOut?: number
@@ -39,7 +38,44 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
   // Use the filtered data
   const filteredData = filterByDates(data, dateSelection)
 
-  return <></>
+  return (
+    <div className="p-5">
+      <h2 className="text-lg">Proposed Pool</h2>
+      <div className="p-5">
+        <p>
+          Every server/bartender gets one point per hour worked. Every support
+          staff gets half a point per hour worked.
+        </p>
+        <p>
+          All tips are pooled and divided by the total number of points for the
+          day.
+        </p>
+        <p>
+          Each employee multiplies their points by the tips/hour ratio. This is
+          their tipout for the day.
+        </p>
+      </div>
+
+      <table className="auto">
+        <thead>
+          <tr>
+            <th className="border border-slate-500">Server/Tender</th>
+            <th className="border border-slate-500">Support Staff</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="border border-slate-500">hours</td>
+            <td className="border border-slate-500">hours</td>
+          </tr>
+          <tr>
+            <td className="border border-slate-500">tips/hour</td>
+            <td className="border border-slate-500">tips/hour</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 export default PoolProposal

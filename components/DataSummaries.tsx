@@ -9,11 +9,10 @@ interface DataSummariesProps {
 interface Shift {
   position: string
   date: Date
-  am_pm: string
   hoursWorked: number
-  foodSales: number
+  foodSales?: number
   liquorSales?: number
-  totalTips: number
+  totalTips?: number
   barTipOut?: number
   bBackTipOut?: number
   expoTipOut?: number
@@ -44,7 +43,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     return round2Decimal(
       filteredData.reduce((accumulator, shift) => {
         if (shift.position === position) {
-          return accumulator + shift.totalTips
+          return accumulator + (shift.totalTips || 0)
         }
         return accumulator
       }, 0)
@@ -82,7 +81,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     // Calculate total sales based on salesType
     let totalSales = filteredShifts.reduce((acc, shift) => {
       if (salesType === 'foodSales') {
-        return acc + shift.foodSales
+        return acc + (shift.foodSales || 0)
       } else if (salesType === 'liquorSales') {
         return acc + (shift.liquorSales || 0)
       } else if (
@@ -93,7 +92,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
       ) {
         return acc + (shift.totalTips || 0)
       } else {
-        return acc + shift.foodSales + (shift.liquorSales || 0)
+        return acc + (shift.foodSales || 0) + (shift.liquorSales || 0)
       }
     }, 0)
 
@@ -169,7 +168,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     )
 
     const totalTips = filteredShifts.reduce(
-      (acc, shift) => acc + shift.totalTips,
+      (acc, shift) => acc + (shift.totalTips || 0),
       0
     )
     const totalTipOuts = filteredShifts.reduce((acc, shift) => {
@@ -200,12 +199,64 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   const barTotalTipsAndTipOuts = totalTipsAndTipOuts('Bartender', filteredData)
   const serverTotalTipsAndTipOuts = totalTipsAndTipOuts('Server', filteredData)
 
+  function supportStaffTipsHourly(
+    position: 'Host' | 'Expo' | 'Barback',
+    filteredData: Shift[]
+  ): number {
+    const supportShifts = filteredData.filter(
+      (shift) => shift.position === position
+    )
+    const bartenderServerShifts = filteredData.filter(
+      (shift) => shift.position === 'Bartender' || shift.position === 'Server'
+    )
+
+    let totalTipOut: number = 0
+
+    switch (position) {
+      case 'Host':
+        totalTipOut = bartenderServerShifts.reduce((acc, shift) => {
+          return acc + (shift.hostTipOut || 0)
+        }, 0)
+        break
+      case 'Expo':
+        totalTipOut = bartenderServerShifts.reduce((acc, shift) => {
+          return acc + (shift.expoTipOut || 0)
+        }, 0)
+        break
+      case 'Barback':
+        totalTipOut = bartenderServerShifts.reduce((acc, shift) => {
+          return acc + (shift.bBackTipOut || 0)
+        }, 0)
+        break
+      default:
+        break
+    }
+    console.log('Tips: ', totalTipOut)
+
+    const totalHours = supportShifts.reduce((acc, shift) => {
+      if (shift.position === position) {
+        return acc + shift.hoursWorked
+      }
+      return acc
+    }, 0)
+    console.log('Hours: ', totalHours)
+    const hourly =
+      totalHours !== 0 ? round2Decimal(totalTipOut / totalHours) : 0
+
+    return hourly
+  }
+
+  const hostHourly = supportStaffTipsHourly('Host', filteredData)
+  const expoHourly = supportStaffTipsHourly('Expo', filteredData)
+  const bBackHourly = supportStaffTipsHourly('Barback', filteredData)
+
   return (
     <div className="p-5">
+      <h2 className="text-lg">Current Distribution</h2>
       <table className="auto">
         <thead>
           <tr>
-            <th className="border border-slate-500">Position (all)</th>
+            <th className="border border-slate-500">Position</th>
             <th className="border border-slate-500">Total Tips</th>
             <th className="border border-slate-500">% Sales to Host</th>
 
@@ -246,7 +297,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
             <td className="border border-slate-500">{bartenderTips}</td>
             <td className="border border-slate-500">{barToHostPercentage}</td>
             <td className="border border-slate-500">{barToExpoPercentage}</td>
-            <td></td>
+            <td className="border border-slate-500"></td>
             <td className="border border-slate-500">{bBackPercentage}</td>
             <td className="border border-slate-500">
               {barTotalTipsAndTipOuts.percentage}
@@ -261,14 +312,35 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
           <tr>
             <td className="border border-slate-500">Host</td>
             <td className="border border-slate-500">{hostTips}</td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500">{hostHourly}</td>
           </tr>
           <tr>
             <td className="border border-slate-500">Expo</td>
             <td className="border border-slate-500">{expoTips}</td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500">{expoHourly}</td>
           </tr>
           <tr>
             <td className="border border-slate-500">Barback</td>
             <td className="border border-slate-500">{bBackTips}</td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500"></td>
+            <td className="border border-slate-500">{bBackHourly}</td>
           </tr>
         </tbody>
       </table>

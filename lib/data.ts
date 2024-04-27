@@ -4,7 +4,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-01T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 6.5,
         foodSales: 215.32,
         liquorSales: 141.72,
@@ -16,7 +15,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-01T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 3.5,
         foodSales: 145.26,
         liquorSales: 98.47,
@@ -28,7 +26,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-01T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 5.2,
         foodSales: 132.78,
         liquorSales: 215.39,
@@ -40,7 +37,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-01T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 4.2,
         foodSales: 298.45,
         liquorSales: 208.23,
@@ -52,7 +48,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-01T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 5.5,
         foodSales: 200.87,
         liquorSales: 117.65,
@@ -64,7 +59,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-01T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 7.8,
         foodSales: 142.78,
         liquorSales: 233.21,
@@ -77,7 +71,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-02T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 3.6,
         foodSales: 164.82,
         liquorSales: 98.75,
@@ -89,7 +82,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-02T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 5.1,
         foodSales: 245.76,
         liquorSales: 174.39,
@@ -101,7 +93,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-02T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 6.2,
         foodSales: 189.52,
         liquorSales: 135.28,
@@ -113,7 +104,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-02T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 7.8,
         foodSales: 142.78,
         liquorSales: 233.21,
@@ -125,7 +115,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-02T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 5.4,
         foodSales: 215.73,
         liquorSales: 122.84,
@@ -137,7 +126,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-02T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 7.4,
         foodSales: 395.12,
         liquorSales: 318.57,
@@ -149,7 +137,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-02T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 5.5,
         foodSales: 212.98,
         liquorSales: 154.76,
@@ -161,7 +148,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-02T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 5.2,
         foodSales: 236.41,
         liquorSales: 89.37,
@@ -174,7 +160,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-03T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 6.8,
         foodSales: 178.33,
         liquorSales: 343.72,
@@ -186,7 +171,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-03T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 4.5,
         foodSales: 207.69,
         liquorSales: 138.47,
@@ -198,7 +182,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-03T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 7.1,
         foodSales: 298.46,
         liquorSales: 214.32,
@@ -210,7 +193,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-03T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 6.3,
         foodSales: 184.52,
         liquorSales: 293.21,
@@ -222,7 +204,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-03T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 3.7,
         foodSales: 132.89,
         liquorSales: 167.25,
@@ -234,7 +215,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-03T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 7.3,
         foodSales: 278.14,
         liquorSales: 408.19,
@@ -246,7 +226,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-03T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 5.2,
         foodSales: 197.85,
         liquorSales: 142.59,
@@ -258,7 +237,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-03T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 4.1,
         foodSales: 119.87,
         liquorSales: 287.66,
@@ -271,7 +249,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-04T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 7.1,
         foodSales: 353.21,
         liquorSales: 157.89,
@@ -283,7 +260,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-04T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 6.4,
         foodSales: 299.87,
         liquorSales: 218.65,
@@ -295,7 +271,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-04T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 5.7,
         foodSales: 278.93,
         liquorSales: 183.24,
@@ -307,7 +282,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-04T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 7.6,
         foodSales: 192.32,
         liquorSales: 483.89,
@@ -319,7 +293,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-04T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 6.8,
         foodSales: 276.45,
         liquorSales: 184.32,
@@ -331,7 +304,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-04T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 5.5,
         foodSales: 196.78,
         liquorSales: 413.65,
@@ -343,7 +315,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-04T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 4.3,
         foodSales: 298.43,
         liquorSales: 284.21,
@@ -355,7 +326,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-04T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 6.2,
         foodSales: 237.65,
         liquorSales: 142.89,
@@ -367,7 +337,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-04T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 7.6,
         foodSales: 192.32,
         liquorSales: 483.89,
@@ -380,7 +349,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-05T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 3.2,
         foodSales: 127.56,
         liquorSales: 478.29,
@@ -392,7 +360,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-05T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 2.8,
         foodSales: 98.76,
         liquorSales: 165.43,
@@ -404,7 +371,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-05T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 4.9,
         foodSales: 156.32,
         liquorSales: 118.67,
@@ -416,7 +382,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-05T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 6.1,
         foodSales: 209.43,
         liquorSales: 267.89,
@@ -428,7 +393,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-05T08:00:00"),
-        am_pm: "AM",
         hoursWorked: 5.4,
         foodSales: 185.43,
         liquorSales: 189.32,
@@ -440,7 +404,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-05T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 6.7,
         foodSales: 430.67,
         liquorSales: 129.87,
@@ -452,7 +415,6 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-05T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 7.7,
         foodSales: 208.74,
         liquorSales: 212.89,
@@ -464,7 +426,6 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-05T14:00:00"),
-        am_pm: "PM",
         hoursWorked: 2.8,
         foodSales: 393.21,
         liquorSales: 229.47,
@@ -472,7 +433,37 @@ const data = {
         bBackTipOut: 7.37,
         expoTipOut: 18.12,
         hostTipOut: 12.33,
-    }
+    },
+    {
+        position: "Host",
+        date: new Date("2024-04-05T14:00:00"),
+        hoursWorked: 2.8,
+    },
+    {
+        position: "Expo",
+        date: new Date("2024-04-05T14:00:00"),
+        hoursWorked: 2.8,
+    },    
+    {
+        position: "Barback",
+        date: new Date("2024-04-05T14:00:00"),
+        hoursWorked: 2.8,
+    },
+    {
+        position: "Host",
+        date: new Date("2024-04-04T14:00:00"),
+        hoursWorked: 2.8,
+    },
+    {
+        position: "Expo",
+        date: new Date("2024-04-04T14:00:00"),
+        hoursWorked: 2.8,
+    },    
+    {
+        position: "Barback",
+        date: new Date("2024-04-04T14:00:00"),
+        hoursWorked: 2.8,
+    },
 ]
 }
 

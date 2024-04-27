@@ -12,7 +12,6 @@ function generateRandomDate(): Date {
 
 function generateRandomEntry(position: string): Shift {
     const date = generateRandomDate();
-    const am_pm = Math.random() < 0.5 ? 'AM' : 'PM';
     const hoursWorked = generateRandomNumber(1, 8);
     const foodSales = generateRandomNumber(50, 500);
     const liquorSales = generateRandomNumber(50, 500);
@@ -35,7 +34,6 @@ function generateRandomEntry(position: string): Shift {
     return {
         position,
         date,
-        am_pm,
         hoursWorked,
         foodSales,
         liquorSales,

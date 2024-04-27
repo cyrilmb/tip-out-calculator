@@ -31,7 +31,6 @@ export default function ShiftsTableView() {
               <tr>
                 <th className="border border-slate-500">Position</th>
                 <th className="border border-slate-500">Date</th>
-                <th className="border border-slate-500">AM/PM</th>
                 <th className="border border-slate-500">Hours</th>
                 <th className="border border-slate-500">Food Sales</th>
                 <th className="border border-slate-500">Liquor Sales</th>

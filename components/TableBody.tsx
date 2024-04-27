@@ -11,7 +11,6 @@ export default function TableBody({ shift }: { shift: Shift }) {
           day: 'numeric',
         })}
       </td>
-      <td className="border border-slate-500">{shift.am_pm}</td>
       <td className="border border-slate-500">{shift.hoursWorked}</td>
       <td className="border border-slate-500">{shift.foodSales}</td>
       <td className="border border-slate-500">{shift.liquorSales}</td>
