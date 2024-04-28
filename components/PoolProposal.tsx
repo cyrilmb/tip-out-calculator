@@ -129,7 +129,6 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
       },
       null
     )
-
     // console.log(mostHoursShift?.hoursWorked || 0)
 
     leastHoursShift = filteredData.reduce(
@@ -144,8 +143,14 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
       },
       null
     )
-
     // console.log(leastHoursShift ? leastHoursShift.hoursWorked : 0)
+
+    const sortedShifts = filteredData
+      .slice()
+      .sort((a, b) => a.hoursWorked - b.hoursWorked)
+    const medianIndex = Math.floor(sortedShifts.length / 2)
+    medianHoursShift = sortedShifts[medianIndex]
+    // console.log(medianHoursShift?.hoursWorked)
 
     return {
       mostHours: mostHoursShift,
