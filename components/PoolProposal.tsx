@@ -130,6 +130,15 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
       null
     )
     // console.log(mostHoursShift?.hoursWorked || 0)
+    const mostTipOut =
+      (mostHoursShift?.bBackTipOut || 0) +
+      (mostHoursShift?.barTipOut || 0) +
+      (mostHoursShift?.expoTipOut || 0) +
+      (mostHoursShift?.hostTipOut || 0)
+
+    mostHoursIndividualTakeHome = round2Decimal(
+      (mostHoursShift?.totalTips || 0) - mostTipOut
+    )
 
     leastHoursShift = filteredData.reduce(
       (leastShift: Shift | null, shift: Shift) => {
@@ -144,6 +153,15 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
       null
     )
     // console.log(leastHoursShift ? leastHoursShift.hoursWorked : 0)
+    const leastTipOut =
+      (leastHoursShift?.bBackTipOut || 0) +
+      (leastHoursShift?.barTipOut || 0) +
+      (leastHoursShift?.expoTipOut || 0) +
+      (leastHoursShift?.hostTipOut || 0)
+
+    leastHoursIndividualTakeHome = round2Decimal(
+      (leastHoursShift?.totalTips || 0) - leastTipOut
+    )
 
     const sortedShifts = filteredData
       .slice()
@@ -151,6 +169,15 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
     const medianIndex = Math.floor(sortedShifts.length / 2)
     medianHoursShift = sortedShifts[medianIndex]
     // console.log(medianHoursShift?.hoursWorked)
+    const medianTipOut =
+      (medianHoursShift?.bBackTipOut || 0) +
+      (medianHoursShift?.barTipOut || 0) +
+      (medianHoursShift?.expoTipOut || 0) +
+      (medianHoursShift?.hostTipOut || 0)
+
+    medianHoursIndividualTakeHome = round2Decimal(
+      (medianHoursShift?.totalTips || 0) - medianTipOut
+    )
 
     return {
       mostHours: mostHoursShift,
