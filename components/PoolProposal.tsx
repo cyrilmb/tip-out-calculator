@@ -106,12 +106,15 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
     let mostHoursShift: Shift | null = null
     let mostHoursIndividualTakeHome = 0
     let mostHoursPooledTakeHome = 0
+    let mostHoursWorked: number = 0
     let medianHoursShift: Shift | null = null
     let medianHoursIndividualTakeHome = 0
     let medianHoursPooledTakeHome = 0
+    let medianHoursWorked: number = 0
     let leastHoursShift: Shift | null = null
     let leastHoursIndividualTakeHome = 0
     let leastHoursPooledTakeHome = 0
+    let leastHoursWorked: number = 0
 
     // Variables for calculating pooled take-home
     let sumOfTotalTips = 0
@@ -120,31 +123,49 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
     let sumOfBarbacksExposHostsHours = 0
 
     // Find the shifts with most, least and median hours worked from selected dates
+    //Most hours worked example
     mostHoursShift = filteredData.reduce(
       (mostShift: Shift | null, shift: Shift) => {
-        if (!mostShift || shift.hoursWorked > (mostShift.hoursWorked || 0)) {
+        if (
+          (shift.position === 'Server' || shift.position === 'Bartender') &&
+          (!mostShift || shift.hoursWorked > (mostShift?.hoursWorked || 0))
+        ) {
           return shift
         }
         return mostShift
       },
       null
     )
-    // console.log(mostHoursShift?.hoursWorked || 0)
+    // console.log('Most: ', mostHoursShift?.hoursWorked || 0)
+    //subtract tipouts for take home amount
     const mostTipOut =
-      (mostHoursShift?.bBackTipOut || 0) +
-      (mostHoursShift?.barTipOut || 0) +
-      (mostHoursShift?.expoTipOut || 0) +
-      (mostHoursShift?.hostTipOut || 0)
+      (mostHoursShift?.position === 'Server' ||
+      mostHoursShift?.position === 'Bartender'
+        ? mostHoursShift?.bBackTipOut || 0
+        : 0) +
+      (mostHoursShift?.position === 'Server' ||
+      mostHoursShift?.position === 'Bartender'
+        ? mostHoursShift?.barTipOut || 0
+        : 0) +
+      (mostHoursShift?.position === 'Server' ||
+      mostHoursShift?.position === 'Bartender'
+        ? mostHoursShift?.expoTipOut || 0
+        : 0) +
+      (mostHoursShift?.position === 'Server' ||
+      mostHoursShift?.position === 'Bartender'
+        ? mostHoursShift?.hostTipOut || 0
+        : 0)
 
     mostHoursIndividualTakeHome = round2Decimal(
       (mostHoursShift?.totalTips || 0) - mostTipOut
     )
 
+    //Least hours worked example
     leastHoursShift = filteredData.reduce(
       (leastShift: Shift | null, shift: Shift) => {
         if (
-          !leastShift ||
-          shift.hoursWorked < (leastShift.hoursWorked || Infinity)
+          (shift.position === 'Server' || shift.position === 'Bartender') &&
+          (!leastShift || shift.hoursWorked < (leastShift?.hoursWorked || 0))
         ) {
           return shift
         }
@@ -152,32 +173,131 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
       },
       null
     )
-    // console.log(leastHoursShift ? leastHoursShift.hoursWorked : 0)
+
+    // console.log('Least: ', leastHoursShift ? leastHoursShift.hoursWorked : 0)
+    //subtract tipouts for take home amount
     const leastTipOut =
-      (leastHoursShift?.bBackTipOut || 0) +
-      (leastHoursShift?.barTipOut || 0) +
-      (leastHoursShift?.expoTipOut || 0) +
-      (leastHoursShift?.hostTipOut || 0)
+      (leastHoursShift?.position === 'Server' ||
+      leastHoursShift?.position === 'Bartender'
+        ? leastHoursShift?.bBackTipOut || 0
+        : 0) +
+      (leastHoursShift?.position === 'Server' ||
+      leastHoursShift?.position === 'Bartender'
+        ? leastHoursShift?.barTipOut || 0
+        : 0) +
+      (leastHoursShift?.position === 'Server' ||
+      leastHoursShift?.position === 'Bartender'
+        ? leastHoursShift?.expoTipOut || 0
+        : 0) +
+      (leastHoursShift?.position === 'Server' ||
+      leastHoursShift?.position === 'Bartender'
+        ? leastHoursShift?.hostTipOut || 0
+        : 0)
 
     leastHoursIndividualTakeHome = round2Decimal(
       (leastHoursShift?.totalTips || 0) - leastTipOut
     )
 
+    //Median hours worked example
     const sortedShifts = filteredData
+      .filter(
+        (shift) => shift.position === 'Server' || shift.position === 'Bartender'
+      )
       .slice()
       .sort((a, b) => a.hoursWorked - b.hoursWorked)
     const medianIndex = Math.floor(sortedShifts.length / 2)
     medianHoursShift = sortedShifts[medianIndex]
-    // console.log(medianHoursShift?.hoursWorked)
+
+    // console.log('Median: ', medianHoursShift?.hoursWorked)
+    //subtract tipouts for take home amount
     const medianTipOut =
-      (medianHoursShift?.bBackTipOut || 0) +
-      (medianHoursShift?.barTipOut || 0) +
-      (medianHoursShift?.expoTipOut || 0) +
-      (medianHoursShift?.hostTipOut || 0)
+      (medianHoursShift?.position === 'Server' ||
+      medianHoursShift?.position === 'Bartender'
+        ? medianHoursShift?.bBackTipOut || 0
+        : 0) +
+      (medianHoursShift?.position === 'Server' ||
+      medianHoursShift?.position === 'Bartender'
+        ? medianHoursShift?.barTipOut || 0
+        : 0) +
+      (medianHoursShift?.position === 'Server' ||
+      medianHoursShift?.position === 'Bartender'
+        ? medianHoursShift?.expoTipOut || 0
+        : 0) +
+      (medianHoursShift?.position === 'Server' ||
+      medianHoursShift?.position === 'Bartender'
+        ? medianHoursShift?.hostTipOut || 0
+        : 0)
 
     medianHoursIndividualTakeHome = round2Decimal(
       (medianHoursShift?.totalTips || 0) - medianTipOut
     )
+
+    //Tracking the hours worked on sample shifts
+    mostHoursWorked = mostHoursShift?.hoursWorked || 0
+    leastHoursWorked = leastHoursShift?.hoursWorked || 0
+    medianHoursWorked = medianHoursShift?.hoursWorked || 0
+
+    const hostPayRate: number = 0.3
+    const expoPayRate: number = 0.5
+    const bBackPayRate: number = 0.5
+
+    function poolTipsPointValue(sampleShift: Shift): number {
+      //Total tips for the day
+      const dailyTips = filteredData.reduce((acc, shift) => {
+        if (shift.date === sampleShift.date) {
+          return (acc += shift.totalTips || 0)
+        }
+        return acc
+      }, 0)
+      //Total hours worked in day
+      const dailyHours = filteredData.reduce((acc, shift) => {
+        // Check if shift date matches the sample shift date
+        if (shift.date === sampleShift.date) {
+          switch (shift.position) {
+            case 'Server':
+            case 'Bartender':
+              // Add hours worked for server or bartender directly to accumulator
+              acc += shift.hoursWorked || 0
+              break
+            case 'Host':
+              // Multiply host hours by host pay rate and then add to accumulator
+              acc += (shift.hoursWorked || 0) * hostPayRate
+              break
+            case 'Expo':
+              // Multiply expo hours by expo pay rate and then add to accumulator
+              acc += (shift.hoursWorked || 0) * expoPayRate
+              break
+            case 'Barback':
+              // Multiply barback hours by barback pay rate and then add to accumulator
+              acc += (shift.hoursWorked || 0) * bBackPayRate
+              break
+            default:
+              // For any other position, do not add hours to accumulator
+              break
+          }
+        }
+        return acc
+      }, 0)
+      return dailyTips / dailyHours
+    }
+
+    mostHoursShift
+      ? (mostHoursPooledTakeHome = round2Decimal(
+          poolTipsPointValue(medianHoursShift) * mostHoursShift.hoursWorked
+        ))
+      : (mostHoursPooledTakeHome = 0)
+
+    leastHoursShift
+      ? (leastHoursPooledTakeHome = round2Decimal(
+          poolTipsPointValue(medianHoursShift) * leastHoursShift.hoursWorked
+        ))
+      : (leastHoursPooledTakeHome = 0)
+
+    medianHoursShift
+      ? (medianHoursPooledTakeHome = round2Decimal(
+          poolTipsPointValue(medianHoursShift) * medianHoursShift.hoursWorked
+        ))
+      : (medianHoursPooledTakeHome = 0)
 
     return {
       mostHours: mostHoursShift,
@@ -214,7 +334,9 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
           <thead>
             <tr>
               <th className="border border-slate-500">Server/Tender</th>
-              <th className="border border-slate-500">Support Staff</th>
+              <th className="border border-slate-500">Host</th>
+              <th className="border border-slate-500">Expo</th>
+              <th className="border border-slate-500">Barback</th>
             </tr>
           </thead>
           <tbody>

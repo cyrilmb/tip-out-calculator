@@ -360,7 +360,7 @@ const data = {
     {
         position: "Server",
         date: new Date("2024-04-05T08:00:00"),
-        hoursWorked: 2.8,
+        hoursWorked: 4,
         foodSales: 98.76,
         liquorSales: 165.43,
         totalTips: 112.67,
@@ -426,7 +426,7 @@ const data = {
     {
         position: "Bartender",
         date: new Date("2024-04-05T14:00:00"),
-        hoursWorked: 2.8,
+        hoursWorked: 5,
         foodSales: 393.21,
         liquorSales: 229.47,
         totalTips: 98.75,
@@ -437,7 +437,7 @@ const data = {
     {
         position: "Host",
         date: new Date("2024-04-05T14:00:00"),
-        hoursWorked: 2.8,
+        hoursWorked: 3,
     },
     {
         position: "Expo",

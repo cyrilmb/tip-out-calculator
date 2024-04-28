@@ -55,11 +55,11 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   //Calculate host/expo/barback tipouts for selected days
   function supportStaffTipOuts(tipOut: keyof Shift) {
     return round2Decimal(
-      filteredData.reduce((accumulator, shift) => {
+      filteredData.reduce((acc, shift) => {
         if (shift.position === 'Server' || shift.position === 'Bartender') {
-          return accumulator + Number(shift[tipOut] ?? 0)
+          return acc + Number(shift[tipOut] ?? 0)
         }
-        return accumulator
+        return acc
       }, 0)
     )
   }
