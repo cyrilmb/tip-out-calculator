@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import { Shift } from '@/lib/models/ShiftEntryModel'
 
@@ -63,13 +65,19 @@ const ShiftForm: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Position:</label>
-          <input
-            type="text"
+          <select
             name="position"
             value={formData.position}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="">Select Position</option>
+            <option value="Bartender">Bartender</option>
+            <option value="Server">Server</option>
+            <option value="Host">Host</option>
+            <option value="Expo">Expo</option>
+            <option value="Barback">Barback</option>
+          </select>
         </div>
         <div>
           <label>Date:</label>
