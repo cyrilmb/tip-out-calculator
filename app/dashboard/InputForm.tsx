@@ -6,15 +6,15 @@ import { Shift } from '@/lib/models/ShiftEntryModel'
 const ShiftForm: React.FC = () => {
   const [formData, setFormData] = useState<Shift>({
     position: '',
-    date: new Date(),
+    date: '',
     hoursWorked: 0,
-    foodSales: undefined,
-    liquorSales: undefined,
-    totalTips: undefined,
-    barTipOut: undefined,
-    bBackTipOut: undefined,
-    expoTipOut: undefined,
-    hostTipOut: undefined,
+    foodSales: 0,
+    liquorSales: 0,
+    totalTips: 0,
+    barTipOut: 0,
+    bBackTipOut: 0,
+    expoTipOut: 0,
+    hostTipOut: 0,
   })
   const [shifts, setShifts] = useState<Shift[]>([])
 
@@ -33,15 +33,15 @@ const ShiftForm: React.FC = () => {
     setShifts((prevShifts) => [...prevShifts, formData])
     setFormData({
       position: '',
-      date: new Date(),
+      date: '',
       hoursWorked: 0,
-      foodSales: undefined,
-      liquorSales: undefined,
-      totalTips: undefined,
-      barTipOut: undefined,
-      bBackTipOut: undefined,
-      expoTipOut: undefined,
-      hostTipOut: undefined,
+      foodSales: 0,
+      liquorSales: 0,
+      totalTips: 0,
+      barTipOut: 0,
+      bBackTipOut: 0,
+      expoTipOut: 0,
+      hostTipOut: 0,
     })
   }
 
@@ -84,7 +84,7 @@ const ShiftForm: React.FC = () => {
           <input
             type="date"
             name="date"
-            value={formData.date.toISOString().split('T')[0]}
+            value={formData.date.toString().split('T')[0]}
             onChange={handleChange}
             required
           />
@@ -96,6 +96,7 @@ const ShiftForm: React.FC = () => {
             name="hoursWorked"
             value={formData.hoursWorked}
             onChange={handleChange}
+            step={0.25}
             required
           />
         </div>
@@ -115,6 +116,7 @@ const ShiftForm: React.FC = () => {
             name="liquorSales"
             value={formData.liquorSales || ''}
             onChange={handleChange}
+            step={0.01}
           />
         </div>
         <div>
@@ -124,6 +126,7 @@ const ShiftForm: React.FC = () => {
             name="totalTips"
             value={formData.totalTips || ''}
             onChange={handleChange}
+            step={0.01}
           />
         </div>
         <div>
@@ -133,6 +136,7 @@ const ShiftForm: React.FC = () => {
             name="barTipOut"
             value={formData.barTipOut || ''}
             onChange={handleChange}
+            step={0.01}
           />
         </div>
         <div>
@@ -142,6 +146,7 @@ const ShiftForm: React.FC = () => {
             name="bBackTipOut"
             value={formData.bBackTipOut || ''}
             onChange={handleChange}
+            step={0.01}
           />
         </div>
         <div>

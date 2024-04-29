@@ -8,7 +8,7 @@ interface DataSummariesProps {
 
 interface Shift {
   position: string
-  date: Date
+  date: string
   hoursWorked: number
   foodSales?: number
   liquorSales?: number
@@ -23,14 +23,18 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
   dateSelection,
   data,
 }) => {
-  //Filter selected dates from ALL DATA
+  // Filter selected dates from ALL DATA
   function filterByDates(data: Shift[], dateSelection: string[]): Shift[] {
     return data.filter((shift) => {
-      // Convert shift date to the same format as selected dates
-      const shiftDateFormatted = shift.date.toLocaleDateString('en-us', {
+      // Parse shift date string into a Date object
+      const shiftDate = new Date(shift.date)
+
+      // Format the date as "Month Day"
+      const shiftDateFormatted = shiftDate.toLocaleDateString('en-us', {
         month: 'short',
         day: 'numeric',
       })
+
       // Check if the formatted date is included in selected dates
       return dateSelection.includes(shiftDateFormatted)
     })

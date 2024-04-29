@@ -12,12 +12,13 @@ export default function DateSelection() {
   //array of selected dates to pass down to calculations
   const [dateSelection, setDateSelection] = useState<string[]>([])
 
-  const dateReformat = data.shifts.map((shift) =>
-    shift.date.toLocaleDateString('en-us', {
+  const dateReformat = data.shifts.map((shift) => {
+    const date = new Date(shift.date)
+    return date.toLocaleDateString('en-us', {
       month: 'short',
       day: 'numeric',
     })
-  )
+  })
 
   function uniqueDates(date: string[]): string[] {
     const exists: { [key: string]: boolean } = {}

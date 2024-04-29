@@ -1,6 +1,6 @@
 export type Shift = {
     position: string
-    date: Date
+    date: string
     hoursWorked: number
     foodSales?: number
     liquorSales?: number
