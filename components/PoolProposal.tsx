@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { round2Decimal } from '@/lib/utils'
 
 interface DataSummariesProps {
@@ -39,9 +39,23 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
   const filteredData = filterByDates(data, dateSelection)
 
   //Payrates for support staff - multiplies against their hours worked to calculate final point value
-  const hostPayRate: number = 0.3
-  const expoPayRate: number = 0.5
-  const bBackPayRate: number = 0.5
+  // State variables for pay rates
+  const [hostPayRate, setHostPayRate] = useState<number>(0.3)
+  const [expoPayRate, setExpoPayRate] = useState<number>(0.5)
+  const [bBackPayRate, setBBackPayRate] = useState<number>(0.5)
+
+  // Handlers to adjust pay rates
+  const handleHostPayRateChange = (value: number) => {
+    setHostPayRate(value)
+  }
+
+  const handleExpoPayRateChange = (value: number) => {
+    setExpoPayRate(value)
+  }
+
+  const handleBBackPayRateChange = (value: number) => {
+    setBBackPayRate(value)
+  }
 
   //Pool all tips, calculate hours worked and percentage of tips owed
   const bartenderServerShifts = filteredData.filter(
@@ -326,7 +340,10 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
       <div className="p-5">
         <ul>
           <li>Every server/bartender gets one point per hour worked.</li>
-          <li>Every support staff gets half a point per hour worked.</li>
+          <li>
+            Support staff gets an adjustable rate less than one point per hour
+            worked.
+          </li>
           <li>
             All tips are pooled and divided by the total number of points for
             the day.
@@ -341,40 +358,87 @@ const PoolProposal: React.FC<DataSummariesProps> = ({
         <table className="auto">
           <thead>
             <tr>
-              <th className="border border-slate-500">Server/Tender</th>
-              <th className="border border-slate-500">Host</th>
-              <th className="border border-slate-500">Expo</th>
-              <th className="border border-slate-500">Barback</th>
+              <th className="border border-slate-500">Position</th>
+              <th className="border border-slate-500">Pooled Tips/Hour</th>
+              <th className="border border-slate-500">Hours</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="border border-slate-500">
-                {serverBarHours} hours
-              </td>
-              <td className="border border-slate-500">{hostHours} hours</td>
-              <td className="border border-slate-500">{expoHours} hours</td>
-              <td className="border border-slate-500">{bBackHours} hours</td>
-            </tr>
-            <tr>
+              <td className="border border-slate-500">Server/Tender</td>
               <td className="border border-slate-500">
                 {serverBarHourly} tips/hour
               </td>
               <td className="border border-slate-500">
+                {serverBarHours} hours
+              </td>
+            </tr>
+            <tr>
+              <td className="border border-slate-500">Host</td>
+              <td className="border border-slate-500">
                 {hostHourly} tips/hour
               </td>
+              <td className="border border-slate-500">{hostHours} hours</td>
+            </tr>
+            <tr>
+              <td className="border border-slate-500">Expo</td>
               <td className="border border-slate-500">
                 {expoHourly} tips/hour
               </td>
+              <td className="border border-slate-500">{expoHours} hours</td>
+            </tr>
+            <tr>
+              <td className="border border-slate-500">Barback</td>
               <td className="border border-slate-500">
                 {bBackHourly} tips/hour
               </td>
+              <td className="border border-slate-500">{bBackHours} hours</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div>
+        {/* Inputs for adjusting pay rates */}
+        <div>
+          <label>Host Pay Rate: </label>
+          <input
+            type="number"
+            value={hostPayRate}
+            onChange={(e) =>
+              handleHostPayRateChange(parseFloat(e.target.value))
+            }
+            step={0.1}
+            min={0}
+          />
+        </div>
+        <div>
+          <label>Expo Pay Rate: </label>
+          <input
+            type="number"
+            value={expoPayRate}
+            onChange={(e) =>
+              handleExpoPayRateChange(parseFloat(e.target.value))
+            }
+            step={0.1}
+            min={0}
+          />
+        </div>
+        <div>
+          <label>Barback Pay Rate: </label>
+          <input
+            type="number"
+            value={bBackPayRate}
+            onChange={(e) =>
+              handleBBackPayRateChange(parseFloat(e.target.value))
+            }
+            step={0.1}
+            min={0}
+          />
+        </div>
+      </div>
+
       <div className="pt-5">
-        <h2 className="text-lg">Sample Shifts</h2>
+        <h2 className="text-lg">Sample Server/Bartender Shifts</h2>
         <table className="auto">
           <thead>
             <tr>
