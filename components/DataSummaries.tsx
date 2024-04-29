@@ -53,6 +53,7 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
       }, 0)
     )
   }
+
   const serverTips = servBarTips('Server')
   const bartenderTips = servBarTips('Bartender')
 
@@ -188,6 +189,15 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
       )
     }, 0)
 
+    const BarTipOut = round2Decimal(
+      filteredData.reduce((acc, shift) => {
+        return (
+          acc +
+          (shift.position === 'Server' && shift.barTipOut ? shift.barTipOut : 0)
+        )
+      }, 0)
+    )
+
     const hours = filteredShifts.reduce((acc, shift) => {
       return acc + shift.hoursWorked
     }, 0)
@@ -197,7 +207,14 @@ const DataSummaries: React.FC<DataSummariesProps> = ({
     }
 
     const percentage = round2Decimal((totalTipOuts / totalTips) * 100)
-    const difference = round2Decimal(totalTips - totalTipOuts)
+
+    let difference
+    if (position === 'Bartender') {
+      difference = round2Decimal(totalTips - totalTipOuts) + BarTipOut
+    } else {
+      difference = round2Decimal(totalTips - totalTipOuts)
+    }
+
     const hourly = round2Decimal(difference / hours)
 
     return { percentage, difference, hourly }

@@ -162,6 +162,7 @@ const ShiftForm: React.FC = () => {
             name="expoTipOut"
             value={formData.expoTipOut || ''}
             onChange={handleChange}
+            step={0.01}
           />
         </div>
         <div>
@@ -171,6 +172,7 @@ const ShiftForm: React.FC = () => {
             name="hostTipOut"
             value={formData.hostTipOut || ''}
             onChange={handleChange}
+            step={0.01}
           />
         </div>
         <button type="submit">Add Shift</button>
