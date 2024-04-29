@@ -56,7 +56,7 @@ const data = {
             "date": "2024-03-13T00:00:00.000Z",
             "hoursWorked": 7.25,
             "liquorSales": 470.5,
-            "totalTips": 135.02,
+            "totalTips": 67.5,
             "bBackTipOut": 30.39
           },
           {
@@ -72,7 +72,9 @@ const data = {
           {
             "position": "Bartender",
             "date": "2024-03-13T00:00:00.000Z",
-            "hoursWorked": 5.5
+            "hoursWorked": 5.5,
+            "totalTips": 67.5
+
           },
           {
             "position": "Server",
@@ -167,6 +169,89 @@ const data = {
             "hostTipOut": 5
           }
           //March 15
+          {
+            "position": "Server",
+            "date": "2024-03-15",
+            "hoursWorked": 3,
+            "foodSales": 0,
+            "liquorSales": 14,
+            "totalTips": 18.63,
+            "barTipOut": 2,
+            "bBackTipOut": 0,
+            "expoTipOut": 0,
+            "hostTipOut": 2
+          },
+          {
+            "position": "Bartender",
+            "date": "2024-03-15",
+            "hoursWorked": 3,
+            "foodSales": 0,
+            "liquorSales": 0,
+            "totalTips": 8.11,
+            "barTipOut": 0,
+            "bBackTipOut": 0,
+            "expoTipOut": 0,
+            "hostTipOut": 0
+          },
+          {
+            "position": "Server",
+            "date": "2024-03-15",
+            "hoursWorked": 3,
+            "foodSales": 0,
+            "liquorSales": 14,
+            "totalTips": 15.2,
+            "barTipOut": 0,
+            "bBackTipOut": 2,
+            "expoTipOut": 0,
+            "hostTipOut": 0
+          },
+          {
+            "position": "Bartender",
+            "date": "2024-03-15",
+            "hoursWorked": 6.75,
+            "foodSales": 0,
+            "liquorSales": 0,
+            "totalTips": 146.6,
+            "barTipOut": 0,
+            "bBackTipOut": 0,
+            "expoTipOut": 0,
+            "hostTipOut": 0
+          },
+          {
+            "position": "Host",
+            "date": "2024-03-15",
+            "hoursWorked": 3,
+            "foodSales": 0,
+            "liquorSales": 0,
+            "totalTips": 0,
+            "barTipOut": 0,
+            "bBackTipOut": 0,
+            "expoTipOut": 0,
+            "hostTipOut": 0
+          },
+          {
+            "position": "Server",
+            "date": "2024-03-15",
+            "hoursWorked": 5.5,
+            "foodSales": 0,
+            "liquorSales": 213.75,
+            "totalTips": 124.7,
+            "barTipOut": 20,
+            "bBackTipOut": 0,
+            "hostTipOut": 5
+          },
+          {
+            "position": "Server",
+            "date": "2024-03-15",
+            "hoursWorked": 5,
+            "foodSales": 0,
+            "liquorSales": 520.5,
+            "totalTips": 348.9,
+            "barTipOut": 50,
+            "bBackTipOut": 0,
+            "expoTipOut": 9,
+            "hostTipOut": 14
+          }
       ]
 }
 

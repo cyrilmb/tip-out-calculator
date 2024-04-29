@@ -2,11 +2,12 @@ import React from 'react'
 import { Shift } from '@/lib/models/ShiftEntryModel'
 
 export default function TableBody({ shift }: { shift: Shift }) {
+  const date = new Date(shift.date)
   return (
     <tr>
       <td className="border border-slate-500">{shift.position}</td>
       <td className="border border-slate-500">
-        {shift.date.toLocaleDateString('en-us', {
+        {date.toLocaleDateString('en-us', {
           month: 'short',
           day: 'numeric',
         })}

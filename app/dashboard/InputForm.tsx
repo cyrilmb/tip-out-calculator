@@ -24,7 +24,12 @@ const ShiftForm: React.FC = () => {
     const { name, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name === 'date' ? new Date(value) : value,
+      [name]:
+        name === 'date'
+          ? value
+          : name === 'position'
+          ? value
+          : parseFloat(value) || 0,
     }))
   }
 
@@ -84,17 +89,18 @@ const ShiftForm: React.FC = () => {
           <input
             type="date"
             name="date"
-            value={formData.date.toString().split('T')[0]}
+            value={formData.date}
             onChange={handleChange}
             required
           />
         </div>
+
         <div>
           <label>Hours Worked:</label>
           <input
             type="number"
             name="hoursWorked"
-            value={formData.hoursWorked}
+            value={formData.hoursWorked || ''}
             onChange={handleChange}
             step={0.25}
             required
